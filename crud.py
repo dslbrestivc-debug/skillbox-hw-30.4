@@ -6,7 +6,9 @@ from models import Ingredient, Recipe
 
 
 async def get_recipes(db: AsyncSession) -> list[Recipe]:
-    result = await db.execute(select(Recipe)...)
+    result = await db.execute(
+        select(Recipe).order_by(Recipe.views.desc(), Recipe.cooking_time.asc())
+    )
     return list(result.scalars().all())
 
 
