@@ -21,14 +21,14 @@ class IngredientOut(IngredientBase):
 
 # ---- Рецепт ----
 class RecipeBase(BaseModel):
-    name: str = Field(..., example="Овсяная каша")
-    cooking_time: int = Field(..., gt=0, example=15)
-    description: str = Field(default="", example="Простое и полезное блюдо")
+    name: str = Field(..., examples="Овсяная каша")
+    cooking_time: int = Field(..., gt=0, examples=15)
+    description: str = Field(default="", examples="Простое и полезное блюдо")
 
 
 class RecipeCreate(RecipeBase):
     ingredients: List[str] = Field(
-        ..., example=["Овсяные хлопья", "Молоко", "Вода", "Соль"]
+        ..., examples=["Овсяные хлопья", "Молоко", "Вода", "Соль"]
     )
 
 

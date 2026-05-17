@@ -6,9 +6,8 @@ from models import Ingredient, Recipe
 
 
 async def get_recipes(db: AsyncSession) -> list[Recipe]:
-    stmt = select(Recipe).order_by(Recipe.views.desc(), Recipe.cooking_time.asc())
-    result = await db.execute(stmt)
-    return result.scalars().all()
+    result = await db.execute(select(Recipe)...)
+    return list(result.scalars().all())
 
 
 async def get_recipe(db: AsyncSession, recipe_id: int) -> Recipe | None:
@@ -21,7 +20,7 @@ async def get_recipe(db: AsyncSession, recipe_id: int) -> Recipe | None:
 
 
 async def increment_views(db: AsyncSession, recipe: Recipe) -> None:
-    recipe.views += 1
+    recipe.views += 1  # type: ignore
     await db.commit()
     await db.refresh(recipe)
 
