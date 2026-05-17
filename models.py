@@ -6,9 +6,20 @@ from database import Base
 recipe_ingredient = Table(
     "recipe_ingredient",
     Base.metadata,
-    Column("recipe_id", Integer, ForeignKey("recipes.id", ondelete="CASCADE"), primary_key=True),
-    Column("ingredient_id", Integer, ForeignKey("ingredients.id", ondelete="CASCADE"), primary_key=True),
+    Column(
+        "recipe_id",
+        Integer,
+        ForeignKey("recipes.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+    Column(
+        "ingredient_id",
+        Integer,
+        ForeignKey("ingredients.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
 )
+
 
 class Recipe(Base):
     __tablename__ = "recipes"
@@ -25,6 +36,7 @@ class Recipe(Base):
         back_populates="recipes",
         lazy="selectin",  # подгружаем ингредиенты в одном запросе
     )
+
 
 class Ingredient(Base):
     __tablename__ = "ingredients"

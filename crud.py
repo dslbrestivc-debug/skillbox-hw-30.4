@@ -8,10 +8,10 @@ from models import Ingredient, Recipe
 async def get_recipes(db: AsyncSession) -> list[Recipe]:
     # Сортировка: сначала по убыванию просмотров, затем по возрастанию времени приготовления
     result = await db.execute(
-        select(Recipe)
-        .order_by(Recipe.views.desc(), Recipe.cooking_time.asc())
+        select(Recipe).order_by(Recipe.views.desc(), Recipe.cooking_time.asc())
     )
     return result.scalars().all()
+
 
 async def get_recipe(db: AsyncSession, recipe_id: int) -> Recipe | None:
     result = await db.execute(
@@ -21,10 +21,12 @@ async def get_recipe(db: AsyncSession, recipe_id: int) -> Recipe | None:
     )
     return result.scalars().first()
 
+
 async def increment_views(db: AsyncSession, recipe: Recipe) -> None:
     recipe.views += 1
     await db.commit()
     await db.refresh(recipe)
+
 
 async def create_recipe(db: AsyncSession, data: dict) -> Recipe:
     # Извлекаем список названий ингредиентов, остальное – поля рецепта
