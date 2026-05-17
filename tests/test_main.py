@@ -1,9 +1,9 @@
 import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from main import app
 from database import Base, get_db
+from main import app
 
 # Асинхронный SQLite в памяти для тестов
 TEST_DATABASE_URL = "sqlite+aiosqlite://"
