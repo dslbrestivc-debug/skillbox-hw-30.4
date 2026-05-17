@@ -6,10 +6,8 @@ from models import Ingredient, Recipe
 
 
 async def get_recipes(db: AsyncSession) -> list[Recipe]:
-    # Сортировка: сначала по убыванию просмотров, затем по возрастанию времени приготовления
-    result = await db.execute(
-        select(Recipe).order_by(Recipe.views.desc(), Recipe.cooking_time.asc())
-    )
+    stmt = select(Recipe).order_by(Recipe.views.desc(), Recipe.cooking_time.asc())
+    result = await db.execute(stmt)
     return result.scalars().all()
 
 
